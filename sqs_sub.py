@@ -55,7 +55,7 @@ byte_string = bytearray(string_to_hash,'ascii')
 result,nonce = test_nonces(offset,stride,byte_string,difficulty)
 queue_output.send_message(MessageBody='boto3', MessageGroupId = "1",MessageDeduplicationId ="2", MessageAttributes={
     'hash': {
-        'StringValue':bytes(result).hex(),
+        'StringValue':(str(binascii.hexlify(result),'ascii')),
         'DataType': 'String'
     },
     'nonce': {

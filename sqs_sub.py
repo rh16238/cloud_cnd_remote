@@ -53,7 +53,7 @@ while awaiting_input:
 			print("offset: " + str(offset) + " stride: " +str(stride) + " hash: " + string_to_hash + " difficulty: " + str(difficulty))
 			
 total_D = int(difficulty/8)
-excess_D = D-(total_D*8)
+excess_D = difficulty-(total_D*8)
 excess_D_hex = (255 >> (8-excess_D))<<(8-excess_D)
 
 byte_string = bytearray(string_to_hash,'ascii')

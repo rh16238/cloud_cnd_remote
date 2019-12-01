@@ -6,17 +6,19 @@ import sys
 def test_nonces(offset,stride, byte_string,difficulty):
 	for i in range (offset,sys.maxsize,stride):
 		result = hash(i,byte_string)
-		golden = test_hash(result,difficulty)
+		golden = test_hash(result)
 		
 		if (golden):
 			print (result)
 			return result,i
 		
-
-def test_hash(hash,difficulty):
-	for i in range (0,difficulty):
-		if (hash[i] != 0):
+def test_hash(hash):
+	full_byte = 255
+	for i in range (0,total_D):
+		if ((hash[i] & full_byte) != 0):
 			return False;
+	if ((hash[total_D] & excess_D_hex) != 0):
+		return False	
 	return True
 
 def hash(nonce, byte_string):
@@ -50,6 +52,9 @@ while awaiting_input:
 			awaiting_input = False
 			print("offset: " + str(offset) + " stride: " +str(stride) + " hash: " + string_to_hash + " difficulty: " + str(difficulty))
 			
+total_D = int(difficulty/8)
+excess_D = D-(total_D*8)
+excess_D_hex = (255 >> (8-excess_D))<<(8-excess_D)
 
 byte_string = bytearray(string_to_hash,'ascii')
 result,nonce = test_nonces(offset,stride,byte_string,difficulty)
